@@ -1,2 +1,2 @@
 # DeepLearning
-Deep Learning - Practrise
+Deep Learning - Practice
