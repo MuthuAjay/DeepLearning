@@ -8,12 +8,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from torch import nn
 
-class Utils():
+
+class Utils:
     def __init__(self) -> None:
-        
         pass
-    
-        
+
     @staticmethod
     def plot_decision_boundary(model: torch.nn.Module, X: torch.Tensor, y: torch.Tensor):
         """Plots decision boundaries of model predicting on X in comparison to y.
@@ -50,11 +49,10 @@ class Utils():
         plt.xlim(xx.min(), xx.max())
         plt.ylim(yy.min(), yy.max())
 
-
     # Plot linear data or training and test and predictions (optional)
     @staticmethod
     def plot_predictions(
-        train_data, train_labels, test_data, test_labels, predictions=None
+            train_data, train_labels, test_data, test_labels, predictions=None
     ):
         """
     Plots linear training data and test data and compares predictions.
@@ -74,7 +72,6 @@ class Utils():
         # Show the legend
         plt.legend(prop={"size": 14})
 
-
     # Calculate accuracy (a classification metric)
     @staticmethod
     def accuracy_fn(y_true, y_pred):
@@ -90,8 +87,7 @@ class Utils():
         correct = torch.eq(y_true, y_pred).sum().item()
         acc = (correct / len(y_pred)) * 100
         return acc
-    
-    @staticmethod
-    def set_device() -> str: 
-        return 'cuda' if torch.cuda.is_available() else 'cpu'
 
+    @staticmethod
+    def set_device() -> str:
+        return 'cuda' if torch.cuda.is_available() else 'cpu'
