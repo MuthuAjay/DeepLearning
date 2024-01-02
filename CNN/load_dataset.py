@@ -73,7 +73,7 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
 
     arg_parser = argparse.ArgumentParser(prog="Load Custom Dataset")
-    arg_parser.add_argument('--path', required=False, default="pizza_steak_sushi")
+    arg_parser.add_argument('--dir_name', required=False, default="pizza_steak_sushi")
     arg_parser.add_argument('--url',
                             required=False,
                             default="https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data"
@@ -81,5 +81,5 @@ if __name__ == "__main__":
     args = arg_parser.parse_args()
 
     custom_dataset = CustomData(data_path=r"C:\Users\CD138JR\PycharmProjects\DeepLearning\CNN\data")
-    custom_dataset.download_data(directory=args.path, download_url=args.url)
+    custom_dataset.download_data(directory=args.dir_name, download_url=args.url)
     print(custom_dataset)
