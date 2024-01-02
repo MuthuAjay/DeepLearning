@@ -4,9 +4,11 @@ import zipfile
 from pathlib import Path
 import argparse
 
+
 class CustomData:
     def __init__(self, data_path):
         self.data_path = Path(data_path)
+        self.image_path = None
 
     @staticmethod
     def remove_directory(path):
@@ -69,7 +71,7 @@ class CustomData:
         return f"CustomData(data_path={self.data_path})"
 
 
-if __name__ == "__main__":
+def main():
     logging.basicConfig(level=logging.INFO)
 
     arg_parser = argparse.ArgumentParser(prog="Load Custom Dataset")
@@ -83,3 +85,7 @@ if __name__ == "__main__":
     custom_dataset = CustomData(data_path=r"C:\Users\CD138JR\PycharmProjects\DeepLearning\CNN\data")
     custom_dataset.download_data(directory=args.dir_name, download_url=args.url)
     print(custom_dataset)
+
+
+if __name__ == "__manin__":
+    main()
