@@ -5,6 +5,7 @@ import torchvision.datasets
 from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
+
 class TransformData:
     def __init__(self):
         self.test_dir = None
@@ -35,7 +36,7 @@ class TransformData:
         return train_transform, test_transform
 
     def load_data(self,
-                  image_path: Path,
+                  image_path: str | Path,
                   transform: bool = True,
                   augment: bool = True) -> Tuple[datasets.ImageFolder, datasets.ImageFolder]:
         """
@@ -49,8 +50,11 @@ class TransformData:
         Returns:
             Tuple[datasets.ImageFolder, datasets.ImageFolder]: Train and test datasets.
         """
+        if isinstance(image_path, str):
+            image_path = Path(image_path)
+
         self.train_dir = image_path / "train"
-        self.test_dir = image_path.joinpath("test")
+        self.test_dir = image_path / "test"
 
         if not (self.train_dir.exists() and self.test_dir.exists()):
             raise FileNotFoundError("Train or test directory not found.")
