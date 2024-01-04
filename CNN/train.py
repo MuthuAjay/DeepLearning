@@ -1,7 +1,10 @@
 import torch
+from torch import nn
 from torchvision import datasets
 from torch.utils.data import DataLoader
-from typing import Tuple
+from typing import Tuple, Dict
+from tqdm.auto import tqdm
+
 
 class Train:
     def __init__(self):
@@ -82,3 +85,48 @@ class Train:
             print(f"Test Loss: {test_loss:.5f} | Test Acc: {test_acc:.5f}")
 
         return test_loss, test_acc
+
+
+    def train(self,model: torch.nn.Module,
+              train_dataloader: torch.utils.data.DataLoader,
+              test_dataloader: torch.utils.data.DataLoader,
+              optimizer: torch.optim.Optimizer,
+              loss_fn: torch.nn.Module = nn.CrossEntropyLoss,
+              epochs: int = 5
+              ) -> Dict:
+        """
+        Train the model.
+
+        Args:
+            model (torch.nn.Module): The PyTorch model.
+            train_dataloader (torch.utils.data.DataLoader): DataLoader for training data.
+            test_dataloader (torch.utils.data.DataLoader): DataLoader for testing data.
+            optimizer (torch.optim.Optimizer): The optimizer.
+            loss_fn (torch.nn.Module): The loss function.
+            epochs (int): Number of training epochs.
+
+        Returns:
+            Dict: Dictionary containing training and testing results.
+        """
+        results = {'train_loss':[],
+                   'train_acc': [],
+                   'test_loss': [],
+                   'test_acc': []}
+
+        for epoch in tqdm(range(epochs)):
+            train_loss, train_acc = self.train_step(model=model,
+                                                    dataloader=train_dataloader,
+                                                    loss_fn=loss_fn,
+                                                    optimizer=optimizer)
+
+            test_loss, test_acc = self.test_step(model=model,
+                                                 dataloader=test_dataloader,
+                                                 loss_fn=loss_fn)
+
+            results['train_loss'].append(train_loss)
+            results['test_loss'].append(test_loss)
+            results['train_acc'].append(train_acc)
+            results['test_acc'].append(test_acc)
+
+        return results
+
