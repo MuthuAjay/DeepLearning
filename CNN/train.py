@@ -67,7 +67,7 @@ class Train:
         model.eval()
         test_loss, test_acc = 0.0, 0.0
 
-        with torch.no_grad():  # No need for inference_mode here
+        with torch.inference_mode():  # No need for inference_mode here
             for batch, (X, y) in enumerate(dataloader):
                 X, y = X.to(self.device), y.to(self.device)
                 y_preds_logits = model(X)
