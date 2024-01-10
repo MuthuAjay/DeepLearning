@@ -3,6 +3,9 @@ import requests
 import zipfile
 from pathlib import Path
 
+default_url = ''
+
+
 class CustomData:
     def __init__(self, data_path: str):
         """
@@ -96,7 +99,9 @@ class CustomData:
         return f"CustomData(data_path={self.data_path})"
 
 
-def main(url: str, medium: str, dir_name: str | Path = "pizza_steak_sushi") -> Path:
+def main(medium: str,
+         url: str = default_url,
+         dir_name: str | Path = "pizza_steak_sushi") -> Path:
     """
     Main function for handling dataset download and local checks.
 
