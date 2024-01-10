@@ -3,67 +3,53 @@ from torch import nn
 import logging
 import subprocess
 from utils import TransformData
-
-def run_cmd(cmd):
-    """
-    Run a shell command and capture its output.
-
-    Args:
-        cmd (str): The shell command to run.
-
-    Returns:
-        Tuple[int, bytes, bytes]: Return code, standard output, and standard error.
-    """
-    logging.info("Running SubProcess")
-    proc = subprocess.Popen(cmd, shell=True,
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-    s_output, s_err = proc.communicate()
-    s_return = proc.returncode
-
-    return s_return, s_output, s_err
+from load_dataset import main
+from pathlib import Path
 
 
-def prepare_dataset():
-    """
-    Prepare the dataset based on user input (download or use local).
+class Main(TransformData):
+    def __init__(self, req: int = None, method=None):
+        super().__init__()
+        self.image_path: str | Path = ''
+        self.req = req
+        self.method = method
 
-    Returns:
-        None
-    """
-    logging.info("Give Url or local path of the dataset")
-    method = int(input("Press 1 to download, press 2 to use a local dataset: "))
+    def prepare_dataset(self):
+        """
+        Prepare the dataset based on user input (download or use local).
 
-    if method == 1:
-        url = str(input())
-        logging.info("Creating the dataset")
-        create_dataset = f"python3 load_dataset.py -url {url} -m download"
-    else:
-        directory = str(input())
-        logging.info("Checking the dataset")
-        create_dataset = f"python3 load_dataset.py -directory {directory} -m local"
+        Returns:
+            None
+        """
+        logging.info("Give URL or local path of the dataset")
+        method = int(input("Press 1 to download, press 2 to use a local dataset: "))
 
-    ret, out, err = run_cmd(create_dataset)
+        if method == 1:
+            self.method = "download"
+            url = str(input())
+            logging.info("Creating the dataset")
+            self.image_path = main(url=url,
+                                   method='download')
 
-    if ret == 0:
-        logging.info("Dataset Created")
-    else:
-        logging.info("Dataset creation failed")
-        logging.error(err.decode("UTF-8"))
+        else:
+            self.method = "local"
+            directory = str(input())
+            self.image_path = main(dir_name=directory,
+                                   method='download')
+            logging.info("Checking the dataset")
 
-def process():
-    pass
+    def process(self):
+        if self.req == 1:
+            self.prepare_dataset()
+            self.load_data(image_path= self.image_path)
+        else:
+            logging.info("Predicting the image")
+            logging.info("Choosing the best Model")
 
 
 if __name__ == "__main__":
-
     logging.info("Train Your Own Model or Predict the image")
     logging.info("Press 1 to train your Own Model, press 2 to predict the Image ")
     request = int(input())
-
-    if request == 1:
-        prepare_dataset()
-
-    else:
-        logging.info("Predicting the image")
-        logging.info("Choosing the best Model")
+    main = Main(req=request)
+    main.process()

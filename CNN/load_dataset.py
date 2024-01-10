@@ -2,11 +2,9 @@ import logging
 import requests
 import zipfile
 from pathlib import Path
-import argparse
-
 
 class CustomData:
-    def __init__(self, data_path):
+    def __init__(self, data_path: str):
         """
         Initialize the CustomData object.
 
@@ -16,22 +14,24 @@ class CustomData:
         self.data_path = Path(data_path)
         self.image_path = None
 
+        if not self.data_path.exists():
+            raise FileNotFoundError(f"Data path '{self.data_path}' does not exist.")
+
     @staticmethod
-    def remove_directory(path):
+    def remove_directory(path: Path):
         """
         Remove a directory if it exists.
 
         Args:
             path (Path): Path to the directory to be removed.
         """
-        path = Path(path)
         try:
             path.rmdir()
             logging.info(f"Directory '{path}' removed successfully.")
         except OSError as e:
             logging.debug(f"Error removing directory '{path}': {e}")
 
-    def download_data(self, directory, download_url):
+    def download_data(self, directory: str, download_url: str):
         """
         Download and extract the pizza_steak_sushi dataset.
 
@@ -69,7 +69,7 @@ class CustomData:
             logging.info("Data download and extraction completed.")
 
     @staticmethod
-    def local_drive(path):
+    def local_drive(path: Path) -> bool:
         """
         Check if the dataset is present on the local drive.
 
@@ -80,9 +80,6 @@ class CustomData:
             bool: True if the dataset is present, False otherwise.
         """
         expected_folders = ['train', 'test']
-        if isinstance(path, str):
-            path = Path(path)
-
         if not all((path / folder).exists() for folder in expected_folders):
             return False
 
@@ -99,35 +96,37 @@ class CustomData:
         return f"CustomData(data_path={self.data_path})"
 
 
-def main():
+def main(url: str, medium: str, dir_name: str | Path = "pizza_steak_sushi") -> Path:
+    """
+    Main function for handling dataset download and local checks.
+
+    Args:
+        url (str): URL to download the dataset zip file.
+        medium (str): Download medium (either 'download' or 'local').
+        dir_name (str | Path, optional): Name of the subdirectory to create for the dataset.
+            Defaults to "pizza_steak_sushi".
+
+    Returns:
+        Path: Path to the dataset directory.
+
+    Raises:
+        FileNotFoundError: If the dataset is not present locally.
+    """
     logging.basicConfig(level=logging.INFO)
 
-    arg_parser = argparse.ArgumentParser(prog="Load Custom Dataset")
-    arg_parser.add_argument('--directory', '--dir_name', required=False, default="pizza_steak_sushi")
-    arg_parser.add_argument('-url', '--url',
-                            required=False,
-                            default="https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data"
-                                    "/pizza_steak_sushi.zip")
-    arg_parser.add_argument('-m', '--medium',
-                            required=False,
-                            default="download",
-                            help="Choose 'download' to download the dataset or 'local' to check if the dataset is "
-                                 "present locally.")
-    args = arg_parser.parse_args()
-
     custom_dataset = CustomData(data_path=r"C:\Users\CD138JR\PycharmProjects\DeepLearning\CNN\data")
-    if args.medium == 'download':
-        custom_dataset.download_data(directory=args.dir_name, download_url=args.url)
+
+    if medium == 'download':
+        custom_dataset.download_data(directory=dir_name, download_url=url)
+        return custom_dataset.image_path
     else:
-        path = custom_dataset.data_path / args.dir_name
+        path = custom_dataset.data_path / dir_name
         present = custom_dataset.local_drive(path=path)
+
         if present:
             logging.info("Dataset is present locally.")
+            return path
         else:
-            logging.info("Dataset is not present locally.")
+            logging.warning("Dataset is not present locally.")
+            raise FileNotFoundError
 
-    print(custom_dataset)
-
-
-if __name__ == "__main__":
-    main()
