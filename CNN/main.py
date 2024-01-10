@@ -2,7 +2,7 @@ import torch
 from torch import nn
 import logging
 import subprocess
-
+from utils import TransformData
 
 def run_cmd(cmd):
     """
@@ -51,6 +51,9 @@ def prepare_dataset():
         logging.info("Dataset creation failed")
         logging.error(err.decode("UTF-8"))
 
+def process():
+    pass
+
 
 if __name__ == "__main__":
 
@@ -60,6 +63,7 @@ if __name__ == "__main__":
 
     if request == 1:
         prepare_dataset()
+
     else:
         logging.info("Predicting the image")
         logging.info("Choosing the best Model")

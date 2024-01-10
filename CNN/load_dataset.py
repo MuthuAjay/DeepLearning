@@ -7,11 +7,23 @@ import argparse
 
 class CustomData:
     def __init__(self, data_path):
+        """
+        Initialize the CustomData object.
+
+        Args:
+            data_path (str): Path to the root directory where the dataset will be stored.
+        """
         self.data_path = Path(data_path)
         self.image_path = None
 
     @staticmethod
     def remove_directory(path):
+        """
+        Remove a directory if it exists.
+
+        Args:
+            path (Path): Path to the directory to be removed.
+        """
         path = Path(path)
         try:
             path.rmdir()
@@ -20,6 +32,13 @@ class CustomData:
             logging.debug(f"Error removing directory '{path}': {e}")
 
     def download_data(self, directory, download_url):
+        """
+        Download and extract the pizza_steak_sushi dataset.
+
+        Args:
+            directory (str): Name of the subdirectory to create for the dataset.
+            download_url (str): URL to download the dataset zip file.
+        """
         image_path = self.data_path / directory
 
         if image_path.is_dir():
@@ -51,6 +70,15 @@ class CustomData:
 
     @staticmethod
     def local_drive(path):
+        """
+        Check if the dataset is present on the local drive.
+
+        Args:
+            path (Path): Path to the root directory of the dataset.
+
+        Returns:
+            bool: True if the dataset is present, False otherwise.
+        """
         expected_folders = ['train', 'test']
         if isinstance(path, str):
             path = Path(path)
@@ -82,8 +110,9 @@ def main():
                                     "/pizza_steak_sushi.zip")
     arg_parser.add_argument('-m', '--medium',
                             required=False,
-                            default="https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data"
-                                    "/pizza_steak_sushi.zip")
+                            default="download",
+                            help="Choose 'download' to download the dataset or 'local' to check if the dataset is "
+                                 "present locally.")
     args = arg_parser.parse_args()
 
     custom_dataset = CustomData(data_path=r"C:\Users\CD138JR\PycharmProjects\DeepLearning\CNN\data")
@@ -91,7 +120,12 @@ def main():
         custom_dataset.download_data(directory=args.dir_name, download_url=args.url)
     else:
         path = custom_dataset.data_path / args.dir_name
-        custom_dataset.local_drive(path=path)
+        present = custom_dataset.local_drive(path=path)
+        if present:
+            logging.info("Dataset is present locally.")
+        else:
+            logging.info("Dataset is not present locally.")
+
     print(custom_dataset)
 
 
