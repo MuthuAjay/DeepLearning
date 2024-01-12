@@ -134,7 +134,10 @@ if __name__ == "__main__":
     try:
         request = int(request)
         main_instance = Main(req=request)
-        main_instance.process()
+        main_instance.process(input_shape=3,
+                              hidden_units=20,
+                              num_of_layers=4,
+                              epochs=10)
 
     except ValueError:
         logging.error("Invalid input. Please enter a numeric value (1 or 2).")
