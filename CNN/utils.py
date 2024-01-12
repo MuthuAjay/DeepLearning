@@ -11,6 +11,7 @@ class TransformData:
         self.test_dir = None
         self.train_dir = None
 
+
     @staticmethod
     def data_transform(augment: bool = True) -> Tuple[transforms.Compose, transforms.Compose]:
         """

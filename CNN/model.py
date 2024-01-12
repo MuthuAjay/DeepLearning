@@ -43,15 +43,25 @@ class TinyVGG(nn.Module):
             nn.MaxPool2d(kernel_size=2,
                          stride=2)
         )
-
+        self.conv_output_size = self.get_conv_output_size(input_shape=input_shape)
         self.classifier = nn.Sequential(
             nn.Flatten(),
-            nn.Linear(in_features=hidden_units,
+            nn.Linear(in_features=self.conv_output_size,
                       out_features=output_classes)
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         return self.classifier(self.conv_block_2(self.conv_block_1(x)))
+
+    def get_conv_output_size(self,
+                             input_shape: int,
+                             height: int = 64,
+                             weight: int = 64) -> int:
+
+        with torch.inference_mode():
+            x = torch.rand(1, input_shape, height, weight)
+            x = self.conv_block_2(self.conv_block_1(x))
+            return x.view(x.size(0), -1).size(1)
 
 
 class TinyVGGDynamic(nn.Module):

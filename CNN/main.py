@@ -7,11 +7,13 @@ from train import Train
 from model import TinyVGG, TinyVGGDynamic
 from pathlib import Path
 from typing import Optional, Dict
+import pandas as pd
 
 
 class Main(TransformData, Train):
     def __init__(self, req: int = None, method=None):
-        super().__init__()
+        super(Train, self).__init__()
+        super(TransformData, self).__init__()
         self.results: Dict = {}
         self.model = None
         self.BATCH_SIZE = None
@@ -67,6 +69,7 @@ class Main(TransformData, Train):
         Returns:
             nn.Module: Initialized neural network model.
         """
+        print(input_shape, output_shape, hidden_units)
         if num_of_conv_blocks == 2:
             return TinyVGG(input_shape=input_shape,
                            hidden_units=hidden_units,
@@ -105,7 +108,7 @@ class Main(TransformData, Train):
             # Initialize the model based on user-defined parameters
             self.model = self.initialize_model(input_shape=input_shape,
                                                hidden_units=hidden_units,
-                                               output_shape=train_data.classes,
+                                               output_shape=len(train_data.classes),
                                                num_of_conv_blocks=num_of_layers
                                                )
             # Train the model and store the results
@@ -117,6 +120,7 @@ class Main(TransformData, Train):
                                       optimizer=torch.optim.Adam(params=self.model.parameters(),
                                                                  lr=0.001))
 
+            print(pd.DataFrame(self.results))
         else:
             logging.info("Predicting the image")
             logging.info("Choosing the best Model")

@@ -42,7 +42,9 @@ class CustomData:
             directory (str): Name of the subdirectory to create for the dataset.
             download_url (str): URL to download the dataset zip file.
         """
+
         image_path = self.data_path / directory
+        self.image_path = image_path
 
         if image_path.is_dir():
             if not CustomData.local_drive(image_path):
@@ -62,7 +64,7 @@ class CustomData:
                     f.write(request.content)
                 else:
                     logging.error(f"Failed to download data. Status code: {request.status_code}")
-                    return
+                    raise ConnectionError
 
             # Unzip pizza, steak, sushi data
             with zipfile.ZipFile(zip_file_path, "r") as zip_ref:

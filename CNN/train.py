@@ -32,7 +32,6 @@ class Train:
         """
         model.train()
         train_loss, train_acc = 0.0, 0.0
-
         for batch, (X, y) in enumerate(dataloader):
             X, y = X.to(self.device), y.to(self.device)
             optimizer.zero_grad()
@@ -86,8 +85,7 @@ class Train:
 
         return test_loss, test_acc
 
-
-    def train(self,model: torch.nn.Module,
+    def train(self, model: torch.nn.Module,
               train_dataloader: torch.utils.data.DataLoader,
               test_dataloader: torch.utils.data.DataLoader,
               optimizer: torch.optim.Optimizer,
@@ -108,7 +106,7 @@ class Train:
         Returns:
             Dict: Dictionary containing training and testing results.
         """
-        results = {'train_loss':[],
+        results = {'train_loss': [],
                    'train_acc': [],
                    'test_loss': [],
                    'test_acc': []}
@@ -129,4 +127,3 @@ class Train:
             results['test_acc'].append(test_acc)
 
         return results
-
