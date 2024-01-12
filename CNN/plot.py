@@ -34,3 +34,4 @@ def plot_loss_curves(results: Dict[str, List[float]]):
     plt.title("Accuracy")
     plt.xlabel("epochs")
     plt.legend()
+    plt.show()
