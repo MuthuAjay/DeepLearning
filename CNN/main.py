@@ -8,6 +8,7 @@ from model import TinyVGG, TinyVGGDynamic
 from pathlib import Path
 from typing import Optional, Dict
 import pandas as pd
+from plot import plot_loss_curves
 
 
 class Main(TransformData, Train):
@@ -120,7 +121,9 @@ class Main(TransformData, Train):
                                       optimizer=torch.optim.Adam(params=self.model.parameters(),
                                                                  lr=0.001))
 
-            print(pd.DataFrame(self.results))
+            print(pd.DataFrame(self.results)),
+            plot_loss_curves(self.results)
+
         else:
             logging.info("Predicting the image")
             logging.info("Choosing the best Model")
