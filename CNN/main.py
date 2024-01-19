@@ -22,7 +22,7 @@ class Main(TransformData, Train):
         self.req = req
         self.method = method
 
-    def prepare_dataset(self):
+    def prepare_dataset(self, method):
         """
         Prepare the dataset based on user input (download or use local).
 
@@ -30,7 +30,7 @@ class Main(TransformData, Train):
             None
         """
         logging.info("Give URL or local path of the dataset")
-        method = input("Press 1 to download, press 2 to use a local dataset: ")
+        # method = input("Press 1 to download, press 2 to use a local dataset: ")
 
         try:
             method = int(method)
@@ -81,7 +81,9 @@ class Main(TransformData, Train):
                                   hidden_unit=hidden_units,
                                   num_conv_blocks=num_of_conv_blocks)
 
-    def process(self, input_shape: Optional[int] = 3,
+    def process(self,
+                method: Optional[int],
+                input_shape: Optional[int] = 3,
                 hidden_units: Optional[int] = 10,
                 epochs: int = 5,
                 num_of_layers: int = 2
@@ -90,6 +92,7 @@ class Main(TransformData, Train):
         Process the chosen action (train or predict) based on user input.
 
         Args:
+            method (Optional[int]): To Prepare the Dataset(default is 1 for download the data from Online)
             input_shape (Optional[int]): Number of input channels (default is 3 for RGB).
             hidden_units (Optional[int]): Number of hidden units in the model (default is 10).
             epochs (int): Number of training epochs (default is 5).
@@ -100,7 +103,7 @@ class Main(TransformData, Train):
         """
         if self.req == 1:
             self.BATCH_SIZE = 32
-            self.prepare_dataset()
+            self.prepare_dataset(method=method)
             train_data, test_data = self.load_data(image_path=self.image_path)
             train_data_loader, test_data_loader = self.create_dataloaders(train_data=train_data,
                                                                           test_data=test_data,
@@ -137,7 +140,8 @@ if __name__ == "__main__":
     try:
         request = int(request)
         main_instance = Main(req=request)
-        main_instance.process(input_shape=3,
+        main_instance.process(method=1,
+                              input_shape=3,
                               hidden_units=20,
                               num_of_layers=4,
                               epochs=10)
