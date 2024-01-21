@@ -9,12 +9,14 @@ from pathlib import Path
 from typing import Optional, Dict
 import pandas as pd
 from plot import plot_loss_curves
+from handler import ModelHandler
 
 
-class Main(TransformData, Train):
+class Main(TransformData, Train, ModelHandler):
     def __init__(self, req: int = None, method=None):
         super(Train, self).__init__()
         super(TransformData, self).__init__()
+        super(ModelHandler,self).__init__()
         self.results: Dict = {}
         self.model = None
         self.BATCH_SIZE = None
