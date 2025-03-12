@@ -1,0 +1,224 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 700">
+    <!-- Background -->
+    <rect width="800" height="700" fill="#f8f9fa"/>
+    
+    <!-- Title -->
+    <text x="400" y="50" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">Position Encoding Methods in LLMs</text>
+    
+    <!-- APE (Absolute Position Encoding) -->
+    <g transform="translate(140, 130)">
+      <rect width="160" height="40" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+      <text x="80" y="25" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">APE</text>
+      
+      <!-- APE visualization -->
+      <g transform="translate(0, 50)">
+        <rect width="160" height="120" fill="white" stroke="#90caf9" stroke-width="1" rx="3"/>
+        
+        <!-- Position slots with absolute values -->
+        <rect x="10" y="10" width="30" height="20" fill="#bbdefb" stroke="#64b5f6" stroke-width="1"/>
+        <text x="25" y="25" font-family="Arial" font-size="12" text-anchor="middle">Pos 1</text>
+        
+        <rect x="45" y="10" width="30" height="20" fill="#bbdefb" stroke="#64b5f6" stroke-width="1"/>
+        <text x="60" y="25" font-family="Arial" font-size="12" text-anchor="middle">Pos 2</text>
+        
+        <rect x="80" y="10" width="30" height="20" fill="#bbdefb" stroke="#64b5f6" stroke-width="1"/>
+        <text x="95" y="25" font-family="Arial" font-size="12" text-anchor="middle">Pos 3</text>
+        
+        <rect x="115" y="10" width="30" height="20" fill="#bbdefb" stroke="#64b5f6" stroke-width="1"/>
+        <text x="130" y="25" font-family="Arial" font-size="12" text-anchor="middle">Pos 4</text>
+        
+        <!-- Token embeddings -->
+        <rect x="10" y="50" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="25" y="65" font-family="Arial" font-size="12" text-anchor="middle">The</text>
+        
+        <rect x="45" y="50" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="60" y="65" font-family="Arial" font-size="12" text-anchor="middle">cat</text>
+        
+        <rect x="80" y="50" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="95" y="65" font-family="Arial" font-size="12" text-anchor="middle">sat</text>
+        
+        <rect x="115" y="50" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="130" y="65" font-family="Arial" font-size="12" text-anchor="middle">down</text>
+        
+        <!-- Addition symbols -->
+        <text x="25" y="40" font-family="Arial" font-size="16" text-anchor="middle">+</text>
+        <text x="60" y="40" font-family="Arial" font-size="16" text-anchor="middle">+</text>
+        <text x="95" y="40" font-family="Arial" font-size="16" text-anchor="middle">+</text>
+        <text x="130" y="40" font-family="Arial" font-size="16" text-anchor="middle">+</text>
+        
+        <!-- Combined embeddings -->
+        <rect x="10" y="90" width="30" height="20" fill="#ffecb3" stroke="#ffd54f" stroke-width="1"/>
+        <rect x="45" y="90" width="30" height="20" fill="#ffecb3" stroke="#ffd54f" stroke-width="1"/>
+        <rect x="80" y="90" width="30" height="20" fill="#ffecb3" stroke="#ffd54f" stroke-width="1"/>
+        <rect x="115" y="90" width="30" height="20" fill="#ffecb3" stroke="#ffd54f" stroke-width="1"/>
+        
+        <!-- Arrows showing combination -->
+        <line x1="25" y1="75" x2="25" y2="85" stroke="#757575" stroke-width="1"/>
+        <line x1="60" y1="75" x2="60" y2="85" stroke="#757575" stroke-width="1"/>
+        <line x1="95" y1="75" x2="95" y2="85" stroke="#757575" stroke-width="1"/>
+        <line x1="130" y1="75" x2="130" y2="85" stroke="#757575" stroke-width="1"/>
+      </g>
+      
+      <!-- APE description -->
+      <text x="80" y="190" font-family="Arial" font-size="12" text-anchor="middle">Fixed positional encoding</text>
+      <text x="80" y="205" font-family="Arial" font-size="12" text-anchor="middle">added to each token</text>
+    </g>
+    
+    <!-- RPE (Relative Position Encoding) -->
+    <g transform="translate(320, 130)">
+      <rect width="160" height="40" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="80" y="25" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">RPE</text>
+      
+      <!-- RPE visualization -->
+      <g transform="translate(0, 50)">
+        <rect width="160" height="120" fill="white" stroke="#a5d6a7" stroke-width="1" rx="3"/>
+        
+        <!-- Token positions -->
+        <rect x="15" y="10" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="30" y="25" font-family="Arial" font-size="12" text-anchor="middle">The</text>
+        
+        <rect x="55" y="10" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="70" y="25" font-family="Arial" font-size="12" text-anchor="middle">cat</text>
+        
+        <rect x="95" y="10" width="30" height="20" fill="#c8e6c9" stroke="#81c784" stroke-width="1"/>
+        <text x="110" y="25" font-family="Arial" font-size="12" text-anchor="middle">sat</text>
+        
+        <!-- Relative distance visualization -->
+        <line x1="30" y1="40" x2="70" y2="40" stroke="#4caf50" stroke-width="2"/>
+        <text x="50" y="55" font-family="Arial" font-size="10" text-anchor="middle">d=1</text>
+        
+        <line x1="30" y1="65" x2="110" y2="65" stroke="#2196f3" stroke-width="2"/>
+        <text x="70" y="80" font-family="Arial" font-size="10" text-anchor="middle">d=2</text>
+        
+        <line x1="70" y1="90" x2="110" y2="90" stroke="#ff9800" stroke-width="2"/>
+        <text x="90" y="105" font-family="Arial" font-size="10" text-anchor="middle">d=1</text>
+      </g>
+      
+      <!-- RPE description -->
+      <text x="80" y="190" font-family="Arial" font-size="12" text-anchor="middle">Encodes relative distances</text>
+      <text x="80" y="205" font-family="Arial" font-size="12" text-anchor="middle">between tokens</text>
+    </g>
+    
+    <!-- RoPE (Rotary Position Embedding) -->
+    <g transform="translate(500, 130)">
+      <rect width="160" height="40" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+      <text x="80" y="25" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">RoPE</text>
+      
+      <!-- RoPE visualization -->
+      <g transform="translate(0, 50)">
+        <rect width="160" height="120" fill="white" stroke="#ffcc80" stroke-width="1" rx="3"/>
+        
+        <!-- Rotation concept -->
+        <circle cx="50" cy="60" r="30" fill="none" stroke="#ff9800" stroke-width="1.5"/>
+        <line x1="50" y1="60" x2="75" y2="45" stroke="#ff9800" stroke-width="2"/>
+        <path d="M 60,45 A 15,15 0 0 1 75,45" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="2"/>
+        <text x="50" y="25" font-family="Arial" font-size="10" text-anchor="middle">Rotation by θ</text>
+        
+        <!-- Vector representation -->
+        <line x1="110" y1="40" x2="110" y2="80" stroke="#757575" stroke-width="1" stroke-dasharray="3"/>
+        <line x1="90" y1="60" x2="130" y2="60" stroke="#757575" stroke-width="1" stroke-dasharray="3"/>
+        <line x1="110" y1="60" x2="125" y2="45" stroke="#ff9800" stroke-width="2"/>
+        <text x="120" y="40" font-family="Arial" font-size="10" text-anchor="middle">Vec</text>
+        
+        <!-- Position indicator -->
+        <text x="110" y="95" font-family="Arial" font-size="12" text-anchor="middle">Position θ</text>
+        <text x="110" y="110" font-family="Arial" font-size="12" text-anchor="middle">affects rotation</text>
+      </g>
+      
+      <!-- RoPE description -->
+      <text x="80" y="190" font-family="Arial" font-size="12" text-anchor="middle">Rotates token vectors in</text>
+      <text x="80" y="205" font-family="Arial" font-size="12" text-anchor="middle">complex space by position</text>
+    </g>
+    
+    <!-- Mathematical representation section -->
+    <text x="400" y="350" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">Mathematical Representation</text>
+    
+    <!-- APE math -->
+    <g transform="translate(140, 380)">
+      <rect width="160" height="40" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+      <text x="80" y="25" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">APE</text>
+      
+      <text x="80" y="60" font-family="Arial" font-size="12" text-anchor="middle">E' = E + P</text>
+      <text x="80" y="80" font-family="Arial" font-size="12" text-anchor="middle">Where P is fixed for</text>
+      <text x="80" y="95" font-family="Arial" font-size="12" text-anchor="middle">each position</text>
+      
+      <text x="80" y="120" font-family="Arial" font-size="12" text-anchor="middle">sin(pos/10000^(2i/d))</text>
+      <text x="80" y="135" font-family="Arial" font-size="12" text-anchor="middle">cos(pos/10000^(2i/d))</text>
+    </g>
+    
+    <!-- RPE math -->
+    <g transform="translate(320, 380)">
+      <rect width="160" height="40" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+      <text x="80" y="25" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">RPE</text>
+      
+      <text x="80" y="60" font-family="Arial" font-size="12" text-anchor="middle">a_{ij} = (x_iW^Q)(x_jW^K)^T</text>
+      <text x="80" y="80" font-family="Arial" font-size="12" text-anchor="middle">+ (x_iW^Q)(R_{i-j}W^K)^T</text>
+      <text x="80" y="100" font-family="Arial" font-size="12" text-anchor="middle">+ (u^TW^Q)(x_jW^K)^T</text>
+      <text x="80" y="120" font-family="Arial" font-size="12" text-anchor="middle">+ (v^TW^Q)(R_{i-j}W^K)^T</text>
+    </g>
+    
+    <!-- RoPE math -->
+    <g transform="translate(500, 380)">
+      <rect width="160" height="40" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+      <text x="80" y="25" font-family="Arial" font-size="16" text-anchor="middle" font-weight="bold">RoPE</text>
+      
+      <text x="80" y="60" font-family="Arial" font-size="12" text-anchor="middle">[cos(mθ) -sin(mθ)]</text>
+      <text x="80" y="80" font-family="Arial" font-size="12" text-anchor="middle">R_Θ = </text>
+      <text x="80" y="95" font-family="Arial" font-size="12" text-anchor="middle">[sin(mθ)  cos(mθ)]</text>
+      
+      <text x="80" y="120" font-family="Arial" font-size="12" text-anchor="middle">q' = R_Θ q</text>
+      <text x="80" y="140" font-family="Arial" font-size="12" text-anchor="middle">k' = R_Θ k</text>
+    </g>
+    
+    <!-- Comparison section -->
+    <text x="400" y="550" font-family="Arial" font-size="20" text-anchor="middle" font-weight="bold">Key Differences</text>
+    
+    <!-- Differences table -->
+    <g transform="translate(100, 570)">
+      <rect width="600" height="120" fill="none" stroke="#bdbdbd" stroke-width="1"/>
+      
+      <!-- Headers -->
+      <rect width="150" height="30" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="150" width="150" height="30" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="300" width="150" height="30" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="450" width="150" height="30" fill="#f5f5f5" stroke="#bdbdbd" stroke-width="1"/>
+      
+      <text x="75" y="20" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">Feature</text>
+      <text x="225" y="20" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">APE</text>
+      <text x="375" y="20" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">RPE</text>
+      <text x="525" y="20" font-family="Arial" font-size="14" text-anchor="middle" font-weight="bold">RoPE</text>
+      
+      <!-- Row 1 -->
+      <rect y="30" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="150" y="30" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="300" y="30" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="450" y="30" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      
+      <text x="75" y="50" font-family="Arial" font-size="12" text-anchor="middle">Position Type</text>
+      <text x="225" y="50" font-family="Arial" font-size="12" text-anchor="middle">Absolute</text>
+      <text x="375" y="50" font-family="Arial" font-size="12" text-anchor="middle">Relative</text>
+      <text x="525" y="50" font-family="Arial" font-size="12" text-anchor="middle">Relative (rotational)</text>
+      
+      <!-- Row 2 -->
+      <rect y="60" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="150" y="60" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="300" y="60" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="450" y="60" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      
+      <text x="75" y="80" font-family="Arial" font-size="12" text-anchor="middle">Context Length</text>
+      <text x="225" y="80" font-family="Arial" font-size="12" text-anchor="middle">Limited by training</text>
+      <text x="375" y="80" font-family="Arial" font-size="12" text-anchor="middle">Better extrapolation</text>
+      <text x="525" y="80" font-family="Arial" font-size="12" text-anchor="middle">Best extrapolation</text>
+      
+      <!-- Row 3 -->
+      <rect y="90" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="150" y="90" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="300" y="90" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      <rect x="450" y="90" width="150" height="30" fill="white" stroke="#bdbdbd" stroke-width="1"/>
+      
+      <text x="75" y="110" font-family="Arial" font-size="12" text-anchor="middle">Implementation</text>
+      <text x="225" y="110" font-family="Arial" font-size="12" text-anchor="middle">Simpler</text>
+      <text x="375" y="110" font-family="Arial" font-size="12" text-anchor="middle">More complex</text>
+      <text x="525" y="110" font-family="Arial" font-size="12" text-anchor="middle">Efficient rotation</text>
+    </g>
+  </svg>
