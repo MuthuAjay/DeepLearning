@@ -118,13 +118,13 @@ class SelfAttentionWithRoPE(nn.Module):
         # Rotary embeddings
         self.rotary_emb = RotaryEmbedding(self.head_dim, max_seq_len)
         
-    def forward(self, hidden_states, attention_mask=None):
+    def forward(self, hidden_states: torch.Tensor, attention_mask=None) -> torch.Tensor:
         batch_size, seq_length = hidden_states.shape[:2]
         
         # Project to query, key, value
-        q = self.q_proj(hidden_states)
-        k = self.k_proj(hidden_states)
-        v = self.v_proj(hidden_states)
+        q:torch.Tensor = self.q_proj(hidden_states)
+        k:torch.Tensor = self.k_proj(hidden_states)
+        v:torch.Tensor = self.v_proj(hidden_states)
         
         # Reshape for multi-head attention
         q = q.view(batch_size, seq_length, self.num_heads, self.head_dim)
