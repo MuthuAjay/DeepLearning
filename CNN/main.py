@@ -13,7 +13,7 @@ from handler import ModelHandler
 
 
 class Main(TransformData, Train, ModelHandler):
-    def __init__(self, req: int = None, method=None):
+    def __init__(self, req: int, method=None):
         super(Train, self).__init__()
         super(TransformData, self).__init__()
         super(ModelHandler,self).__init__()
@@ -85,8 +85,8 @@ class Main(TransformData, Train, ModelHandler):
 
     def process(self,
                 method: Optional[int],
-                input_shape: Optional[int] = 3,
-                hidden_units: Optional[int] = 10,
+                input_shape: int = 3,
+                hidden_units: int = 10,
                 epochs: int = 5,
                 num_of_layers: int = 2
                 ):

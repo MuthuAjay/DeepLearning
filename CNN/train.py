@@ -89,7 +89,7 @@ class Train:
               train_dataloader: torch.utils.data.DataLoader,
               test_dataloader: torch.utils.data.DataLoader,
               optimizer: torch.optim.Optimizer,
-              loss_fn: torch.nn.Module = nn.CrossEntropyLoss,
+              loss_fn: torch.nn.Module = nn.CrossEntropyLoss(),
               epochs: int = 5
               ) -> Dict:
         """
